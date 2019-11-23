@@ -27,5 +27,7 @@ namespace Bookstore.Data.MongoDb.Repositories
         public IBooksRepository BooksRepository => _booksRepository;
 
         public void Complete() {}
+        
+        public void Dispose() {}
     }
 }

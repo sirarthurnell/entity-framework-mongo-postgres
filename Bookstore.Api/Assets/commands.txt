@@ -1,0 +1,2 @@
+dotnet ef --startup-project ../Bookstore.Api migrations add Initial
+dotnet ef --startup-project ../Bookstore.Api database update
