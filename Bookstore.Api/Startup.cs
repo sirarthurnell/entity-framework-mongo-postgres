@@ -19,6 +19,15 @@ namespace BookstoreApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(setup => {
+                setup.AddPolicy("AngularDev", options => {
+                    options.WithOrigins("http://localhost:4200/")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             services.AddPostgresDb(settings => {
                 Configuration.GetSection(nameof(BookstoreDatabaseSettings) + ":Postgres").Bind(settings);
             });
@@ -43,7 +52,7 @@ namespace BookstoreApi
                 app.UseHsts();
             }
 
-            // app.UseHttpsRedirection();
+            app.UseCors("AngularDev");
             app.UseMvc();
         }
     }
