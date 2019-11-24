@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Bookstore.Data.Entities;
 using Bookstore.Data.MongoDb.Db;
@@ -21,7 +22,7 @@ namespace Bookstore.Data.MongoDb.Repositories
             return book;
         }
 
-        public Book Get(string id)
+        public Book Get(Guid id)
         {
             return _books
                 .Find<Book>(book => book.Id == id)
@@ -40,12 +41,12 @@ namespace Bookstore.Data.MongoDb.Repositories
             Remove(bookIn.Id);
         }
 
-        public void Remove(string id)
+        public void Remove(Guid id)
         {
             _books.DeleteOne(book => book.Id == id);
         }
 
-        public void Update(string id, Book bookIn)
+        public void Update(Guid id, Book bookIn)
         {
             _books.ReplaceOne(book => book.Id == id, bookIn);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Bookstore.Data.Entities;
 
@@ -7,14 +8,14 @@ namespace Bookstore.Data.Repositories
     {
         IEnumerable<Book> GetAll();
 
-        Book Get(string id);
+        Book Get(Guid id);
 
         Book Create(Book book);
 
-        void Update(string id, Book bookIn);
+        void Update(Guid id, Book bookIn);
 
         void Remove(Book bookIn);
 
-        void Remove(string id);
+        void Remove(Guid id);
     }
 }

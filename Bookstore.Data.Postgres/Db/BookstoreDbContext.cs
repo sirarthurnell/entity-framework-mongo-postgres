@@ -15,6 +15,12 @@ namespace Bookstore.Data.Postgres.Db
         //     optionsBuilder.UseNpgsql(_settings.ConnectionString);
         // }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {}
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        {
+            modelBuilder.HasPostgresExtension("uuid-ossp");
+            // modelBuilder.Entity<Book>().Property(p => p.Id).HasDefaultValueSql("uuid_generate_v4()");
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

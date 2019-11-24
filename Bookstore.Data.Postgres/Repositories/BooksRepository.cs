@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bookstore.Data.Entities;
@@ -21,7 +22,7 @@ namespace Bookstore.Data.Postgres.Repositories
             return book;
         }
 
-        public Book Get(string id)
+        public Book Get(Guid id)
         {
             return _context.Books.FirstOrDefault(book => book.Id == id);
         }
@@ -36,7 +37,7 @@ namespace Bookstore.Data.Postgres.Repositories
             Remove(bookIn.Id);
         }
 
-        public void Remove(string id)
+        public void Remove(Guid id)
         {
             var bookToRemove = Get(id);
             if (bookToRemove != null)
@@ -45,7 +46,7 @@ namespace Bookstore.Data.Postgres.Repositories
             }
         }
 
-        public void Update(string id, Book bookIn)
+        public void Update(Guid id, Book bookIn)
         {
             var bookToUpdate = Get(id);
             if (bookToUpdate != null)

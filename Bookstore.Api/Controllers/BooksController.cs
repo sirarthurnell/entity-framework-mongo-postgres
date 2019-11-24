@@ -1,6 +1,8 @@
 using Bookstore.Data.Entities;
 using Bookstore.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace Bookstore.Api.Controllers
 {
@@ -16,20 +18,51 @@ namespace Bookstore.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateBook()
+        public IActionResult GetAll()
         {
-            var newBook = new Book
-            {
-                Author = "An author",
-                BookName = "A book name",
-                Category = "A category",
-                Price = 5.55M
-            };
+            var books = _unit.BooksRepository.GetAll();
 
+            return Ok(books.ToList());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(Guid id)
+        {
+            var book = _unit.BooksRepository.Get(id);
+            if (book != null)
+            {
+                return Ok(book);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Create(Book newBook)
+        {
             _unit.BooksRepository.Create(newBook);
             _unit.Complete();
 
             return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update(Book book)
+        {
+            _unit.BooksRepository.Update(book.Id, book);
+            _unit.Complete();
+            
+            return NoContent();
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            _unit.BooksRepository.Remove(id);
+            _unit.Complete();
+
+            return NoContent();
         }
 
         protected override void Dispose(bool disposing)

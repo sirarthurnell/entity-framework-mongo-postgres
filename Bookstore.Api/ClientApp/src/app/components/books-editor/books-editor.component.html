@@ -1,0 +1,66 @@
+<section id="bookForm">
+  <form #f="ngForm" class="border border-light p-4">
+    <div class="form-group">
+      <label for="bookName">Book Name</label>
+      <input required [maxLength]="250" name="bookName" type="text" class="form-control" [(ngModel)]="formValues.bookName" />
+    </div>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input required [maxLength]="250" name="author" type="text" class="form-control" [(ngModel)]="formValues.author" />
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input required name="category" type="text" class="form-control" [(ngModel)]="formValues.category" />
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input name="price" type="number" class="form-control" [(ngModel)]="formValues.price" />
+    </div>
+
+    <input type="button" [value]="editMode === 'edit' ? 'Save Edit' : 'Create New'" class="btn btn-success" [disabled]="!f.valid" (click)="saveBook()" />
+  </form>
+</section>
+
+<hr />
+
+<section id="show-books">
+  <div class="card bg-light">
+    <div class="card-body">
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of bookList$ | async">
+            <th>{{ book.id }}</th>
+            <td>{{ book.bookName }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.category }}</td>
+            <td>{{ book.price }}</td>
+            <td>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteBook(book.id)"
+              >
+                Delete
+              </button>
+              <button 
+                class="btn btn-primary btn-sm ml-2"
+                (click)="editBook(book)"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

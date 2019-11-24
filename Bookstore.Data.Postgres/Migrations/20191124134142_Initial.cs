@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bookstore.Data.Postgres.Migrations
 {
@@ -6,11 +7,14 @@ namespace Bookstore.Data.Postgres.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
+
             migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     BookName = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Category = table.Column<string>(nullable: true),
