@@ -353,4 +353,7 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
+# Angular distribution files
+dist/
+
 # End of https://www.gitignore.io/api/visualstudio

@@ -41,7 +41,7 @@ namespace BookstoreApi
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "ClientApp/dist/bookstore-client";
             });
         }
 
