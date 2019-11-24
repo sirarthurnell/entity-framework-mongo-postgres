@@ -17,7 +17,7 @@ namespace Bookstore.Data.MongoDb.Repositories
 
         public Book Create(Book book)
         {
-            _books.InsertOneAsync(book);
+            _books.InsertOne(book);
             return book;
         }
 

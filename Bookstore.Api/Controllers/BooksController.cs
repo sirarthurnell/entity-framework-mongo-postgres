@@ -16,23 +16,6 @@ namespace Bookstore.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateBookDirectly()
-        {
-            var newBook = new Book
-            {
-                Author = "An author",
-                BookName = "A book name",
-                Category = "A category",
-                Price = 5.55M
-            };
-
-            _unit.BooksRepository.Create(newBook);
-            _unit.Complete();
-
-            return Ok();
-        }
-
-        [NonAction]
         public IActionResult CreateBook()
         {
             var newBook = new Book

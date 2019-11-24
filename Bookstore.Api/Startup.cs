@@ -3,12 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Bookstore.Data.Postgres.Configuration;
-using Bookstore.Data.Postgres.Repositories;
-using Bookstore.Data.Repositories;
-using Bookstore.Data.Postgres.Db;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreApi
 {
@@ -23,15 +18,14 @@ namespace BookstoreApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
-            var dbSettings = new BookstoreDatabaseSettings();
-            Configuration.GetSection(nameof(BookstoreDatabaseSettings) + ":Postgres").Bind(dbSettings);
-            services.AddSingleton<IBookstoreDatabaseSettings>(dbSettings);
-            services.AddDbContext<BookstoreDbContext>(options => {
-                options.UseNpgsql(dbSettings.ConnectionString);
+        {
+            services.AddPostgresDb(settings => {
+                Configuration.GetSection(nameof(BookstoreDatabaseSettings) + ":Postgres").Bind(settings);
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>(sp => new UnitOfWork((BookstoreDbContext)sp.GetService(typeof(BookstoreDbContext))));
+            // services.AddMongoDb(settings => {
+            //     Configuration.GetSection(nameof(BookstoreDatabaseSettings) + ":Mongo").Bind(settings);
+            // });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
